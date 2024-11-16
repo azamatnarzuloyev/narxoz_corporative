@@ -40,7 +40,19 @@ const options = {
   maintainAspectRatio: false,
   scales: {
     y: {
-      beginAtZero: true
+      beginAtZero: true,
+      ticks: {
+        stepSize: 1
+      }
+    }
+  },
+  plugins: {
+    tooltip: {
+      callbacks: {
+        label: (context) => {
+          return `Employees: ${context.raw}`
+        }
+      }
     }
   }
 }

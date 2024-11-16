@@ -1,47 +1,71 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { SunIcon, MoonIcon, LanguageIcon, UserCircleIcon } from '@heroicons/vue/24/outline'
+import { useRouter } from 'vue-router'
+import { 
+  SunIcon, 
+  MoonIcon, 
+  LanguageIcon, 
+  UserCircleIcon,
+  Bars3Icon,
+  XMarkIcon
+} from '@heroicons/vue/24/outline'
 
-defineProps<{
+const props = defineProps<{
   isDarkMode: boolean
+  isSidebarOpen: boolean
 }>()
 
-const emit = defineEmits(['toggle-dark-mode', 'toggle-language'])
+const emit = defineEmits(['toggle-dark-mode', 'toggle-language', 'toggle-sidebar'])
+const router = useRouter()
 const userMenuOpen = ref(false)
 
-
+const navigateHome = () => {
+  router.push('/')
+}
 </script>
 
 <template>
-  <nav class="bg-white dark:bg-gray-800 shadow-lg">
+  <nav class="bg-white dark:bg-gray-800 shadow-lg fixed w-full top-0 z-50">
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex justify-between h-16">
         <div class="flex items-center">
-      
+          <button 
+            @click="$emit('toggle-sidebar')"
+            class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
+          >
+            <Bars3Icon v-if="!isSidebarOpen" class="h-6 w-6" />
+            <XMarkIcon v-else class="h-6 w-6" />
+          </button>
+          <img 
+            @click="navigateHome" 
+            src="../assets/logo.png"   
+            alt="Logo" 
+            class="h-8 w-auto cursor-pointer ml-4"
+          />
         </div>
 
         <div class="flex items-center space-x-4">
           <button 
             @click="$emit('toggle-dark-mode')"
-            class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+            class="btn btn-secondary"
           >
-            <SunIcon v-if="isDarkMode" class="h-6 w-6 text-gray-500 dark:text-gray-400" />
-            <MoonIcon v-else class="h-6 w-6 text-gray-500 dark:text-gray-400" />
+            <SunIcon v-if="isDarkMode" class="h-5 w-5" />
+            <MoonIcon v-else class="h-5 w-5" />
           </button>
 
           <button 
             @click="$emit('toggle-language')"
-            class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+            class="btn btn-secondary"
           >
-            <LanguageIcon class="h-6 w-6 text-gray-500 dark:text-gray-400" />
+            <LanguageIcon class="h-5 w-5" />
           </button>
 
           <div class="relative">
             <button 
               @click="userMenuOpen = !userMenuOpen"
-              class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+              class="btn btn-secondary"
             >
-              <UserCircleIcon class="h-6 w-6 text-gray-500 dark:text-gray-400" />
+              <UserCircleIcon class="h-5 w-5" />
             </button>
 
             <div 
@@ -68,4 +92,7 @@ const userMenuOpen = ref(false)
       </div>
     </div>
   </nav>
+
+  <!-- Spacer to prevent content from being hidden under fixed navbar -->
+  <div class="h-16"></div>
 </template>

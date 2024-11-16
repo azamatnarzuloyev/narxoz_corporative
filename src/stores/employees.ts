@@ -15,7 +15,9 @@ export const useEmployeeStore = defineStore('employees', () => {
       imageUrl: 'https://i.pravatar.cc/150?img=1',
       startDate: '2020-03-15',
       salary: '8,000,000 UZS',
-      address: 'Tashkent, Mirabad district'
+      address: 'Tashkent, Mirabad district',
+      birthDate: '1990-05-15',
+      citizenship: 'Uzbekistan'
     },
     {
       id: 2,
@@ -29,7 +31,9 @@ export const useEmployeeStore = defineStore('employees', () => {
       imageUrl: 'https://i.pravatar.cc/150?img=2',
       startDate: '2021-06-01',
       salary: '10,000,000 UZS',
-      address: 'Tashkent, Yunusabad district'
+      address: 'Tashkent, Yunusabad district',
+      birthDate: '1988-08-20',
+      citizenship: 'Uzbekistan'
     },
     {
       id: 3,
@@ -43,7 +47,41 @@ export const useEmployeeStore = defineStore('employees', () => {
       imageUrl: 'https://i.pravatar.cc/150?img=3',
       startDate: '2022-01-15',
       salary: '6,000,000 UZS',
-      address: 'Tashkent, Chilanzar district'
+      address: 'Tashkent, Chilanzar district',
+      birthDate: '1995-03-10',
+      citizenship: 'Uzbekistan'
+    },
+    {
+      id: 4,
+      name: 'Elena Kim',
+      position: 'HR Manager',
+      department: 'HR',
+      email: 'elena.k@company.com',
+      phone: '+998 90 123 45 70',
+      nationality: 'Korean',
+      gender: 'Female',
+      imageUrl: 'https://i.pravatar.cc/150?img=4',
+      startDate: '2019-08-01',
+      salary: '12,000,000 UZS',
+      address: 'Tashkent, Mirzo-Ulugbek district',
+      birthDate: '1987-11-25',
+      citizenship: 'Uzbekistan'
+    },
+    {
+      id: 5,
+      name: 'Alexander Petrov',
+      position: 'Sales Director',
+      department: 'Sales',
+      email: 'alex.p@company.com',
+      phone: '+998 90 123 45 71',
+      nationality: 'Russian',
+      gender: 'Male',
+      imageUrl: 'https://i.pravatar.cc/150?img=5',
+      startDate: '2018-04-01',
+      salary: '15,000,000 UZS',
+      address: 'Tashkent, Yakkasaray district',
+      birthDate: '1985-07-15',
+      citizenship: 'Russia'
     }
   ])
 

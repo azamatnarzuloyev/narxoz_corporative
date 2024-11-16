@@ -6,6 +6,7 @@ import Sidebar from './components/Sidebar.vue'
 
 const isDarkMode = ref(false)
 const { locale } = useI18n()
+const isSidebarOpen = ref(true)
 
 const toggleDarkMode = () => {
   isDarkMode.value = !isDarkMode.value
@@ -14,6 +15,10 @@ const toggleDarkMode = () => {
 
 const toggleLanguage = () => {
   locale.value = locale.value === 'en' ? 'uz' : 'en'
+}
+
+const toggleSidebar = () => {
+  isSidebarOpen.value = !isSidebarOpen.value
 }
 
 onMounted(() => {
@@ -26,17 +31,47 @@ onMounted(() => {
 </script>
 
 <template>
-  <div :class="{ 'dark': isDarkMode }" class="min-h-screen bg-gray-100 dark:bg-gray-900">
+  <div :class="{ 'dark': isDarkMode }" class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <Navbar 
       @toggle-dark-mode="toggleDarkMode" 
       @toggle-language="toggleLanguage"
+      @toggle-sidebar="toggleSidebar"
       :isDarkMode="isDarkMode"
+      :isSidebarOpen="isSidebarOpen"
     />
     <div class="flex">
-      <Sidebar />
-      <main class="flex-1 p-6">
-        <router-view />
+      <Sidebar 
+        :isSidebarOpen="isSidebarOpen"
+        class="transition-all duration-300"
+        :class="isSidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+      />
+      <main 
+        class="flex-1 p-6 transition-all duration-300"
+        :class="{ 'ml-64': isSidebarOpen }"
+      >
+        <div class="max-w-7xl mx-auto">
+          <router-view v-slot="{ Component }">
+            <transition
+              name="fade"
+              mode="out-in"
+            >
+              <component :is="Component" />
+            </transition>
+          </router-view>
+        </div>
       </main>
     </div>
   </div>
 </template>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

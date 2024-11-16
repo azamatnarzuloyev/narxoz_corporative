@@ -30,8 +30,7 @@ const chartData = computed(() => ({
     {
       label: 'Employees',
       data: Object.values(props.data),
-      backgroundColor: '#36A2EB',
-      borderRadius: 6
+      backgroundColor: '#9966FF'
     }
   ]
 }))
@@ -39,25 +38,20 @@ const chartData = computed(() => ({
 const options = {
   responsive: true,
   maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      display: false
-    },
-    tooltip: {
-      callbacks: {
-        label: (context) => {
-          const total = Object.values(props.data).reduce((a, b) => a + b, 0)
-          const percentage = ((context.raw as number) / total * 100).toFixed(1)
-          return `${context.raw} employees (${percentage}%)`
-        }
-      }
-    }
-  },
   scales: {
     y: {
       beginAtZero: true,
       ticks: {
         stepSize: 1
+      }
+    }
+  },
+  plugins: {
+    tooltip: {
+      callbacks: {
+        label: (context) => {
+          return `Employees: ${context.raw}`
+        }
       }
     }
   }
