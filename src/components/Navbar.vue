@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { SunIcon, MoonIcon, LanguageIcon, UserCircleIcon } from '@heroicons/vue/24/outline'
 
 defineProps<{
@@ -8,12 +7,9 @@ defineProps<{
 }>()
 
 const emit = defineEmits(['toggle-dark-mode', 'toggle-language'])
-const router = useRouter()
 const userMenuOpen = ref(false)
 
-const navigateHome = () => {
-  router.push('/')
-}
+
 </script>
 
 <template>
@@ -21,12 +17,7 @@ const navigateHome = () => {
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex justify-between h-16">
         <div class="flex items-center">
-          <img 
-            @click="navigateHome" 
-            src="/logo.svg" 
-            alt="Logo" 
-            class="h-8 w-auto cursor-pointer"
-          />
+      
         </div>
 
         <div class="flex items-center space-x-4">

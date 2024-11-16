@@ -8,7 +8,8 @@ const stats = ref([
   { name: 'Total Employees', value: '250' },
   { name: 'Active Projects', value: '15' },
   { name: 'Departments', value: '8' },
-  { name: 'New Hires', value: '12' }
+  { name: 'New Hires', value: '12' },
+  
 ])
 </script>
 
