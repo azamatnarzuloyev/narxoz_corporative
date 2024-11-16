@@ -6,7 +6,7 @@ import Sidebar from './components/Sidebar.vue'
 
 const isDarkMode = ref(false)
 const { locale } = useI18n()
-const isSidebarOpen = ref(true)
+const isSidebarOpen = ref(false)
 
 const toggleDarkMode = () => {
   isDarkMode.value = !isDarkMode.value
