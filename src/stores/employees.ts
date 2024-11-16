@@ -1,8 +1,27 @@
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
+
+// Employee interfeysini aniqlash
+interface Employee {
+  id: number;
+  name: string;
+  position: string;
+  department: string;
+  email: string;
+  phone: string;
+  nationality: string;
+  gender: string;
+  imageUrl: string;
+  startDate: string; // YYYY-MM-DD format
+  salary: string; // e.g., '8,000,000 UZS'
+  address: string;
+  birthDate: string; // YYYY-MM-DD format
+  citizenship: string;
+}
 
 export const useEmployeeStore = defineStore('employees', () => {
-  const employees = ref([
+  // Employees massivini tiplash
+  const employees = ref<Employee[]>([
     {
       id: 1,
       name: 'Aziz Karimov',
@@ -17,7 +36,7 @@ export const useEmployeeStore = defineStore('employees', () => {
       salary: '8,000,000 UZS',
       address: 'Tashkent, Mirabad district',
       birthDate: '1990-05-15',
-      citizenship: 'Uzbekistan'
+      citizenship: 'Uzbekistan',
     },
     {
       id: 2,
@@ -33,7 +52,7 @@ export const useEmployeeStore = defineStore('employees', () => {
       salary: '10,000,000 UZS',
       address: 'Tashkent, Yunusabad district',
       birthDate: '1988-08-20',
-      citizenship: 'Uzbekistan'
+      citizenship: 'Uzbekistan',
     },
     {
       id: 3,
@@ -49,7 +68,7 @@ export const useEmployeeStore = defineStore('employees', () => {
       salary: '6,000,000 UZS',
       address: 'Tashkent, Chilanzar district',
       birthDate: '1995-03-10',
-      citizenship: 'Uzbekistan'
+      citizenship: 'Uzbekistan',
     },
     {
       id: 4,
@@ -65,7 +84,7 @@ export const useEmployeeStore = defineStore('employees', () => {
       salary: '12,000,000 UZS',
       address: 'Tashkent, Mirzo-Ulugbek district',
       birthDate: '1987-11-25',
-      citizenship: 'Uzbekistan'
+      citizenship: 'Uzbekistan',
     },
     {
       id: 5,
@@ -81,32 +100,35 @@ export const useEmployeeStore = defineStore('employees', () => {
       salary: '15,000,000 UZS',
       address: 'Tashkent, Yakkasaray district',
       birthDate: '1985-07-15',
-      citizenship: 'Russia'
-    }
-  ])
+      citizenship: 'Russia',
+    },
+  ]);
 
-  const addEmployee = (employee) => {
+  // Xodim qo'shish funksiyasi
+  const addEmployee = (employee: Omit<Employee, 'id'>) => {
     employees.value.push({
       id: employees.value.length + 1,
-      ...employee
-    })
-  }
+      ...employee,
+    });
+  };
 
-  const updateEmployee = (id, data) => {
-    const index = employees.value.findIndex(emp => emp.id === id)
+  // Xodim ma'lumotini yangilash funksiyasi
+  const updateEmployee = (id: number, data: Partial<Employee>) => {
+    const index = employees.value.findIndex((emp) => emp.id === id);
     if (index !== -1) {
-      employees.value[index] = { ...employees.value[index], ...data }
+      employees.value[index] = { ...employees.value[index], ...data };
     }
-  }
+  };
 
-  const deleteEmployee = (id) => {
-    employees.value = employees.value.filter(emp => emp.id !== id)
-  }
+  // Xodimni o'chirish funksiyasi
+  const deleteEmployee = (id: number) => {
+    employees.value = employees.value.filter((emp) => emp.id !== id);
+  };
 
   return {
     employees,
     addEmployee,
     updateEmployee,
-    deleteEmployee
-  }
-})
+    deleteEmployee,
+  };
+});

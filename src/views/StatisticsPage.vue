@@ -1,136 +1,170 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useEmployeeStore } from '../stores/employees'
-import StatisticsFilters from '../components/statistics/StatisticsFilters.vue'
-import DepartmentChart from '../components/statistics/DepartmentChart.vue'
-import GenderChart from '../components/statistics/GenderChart.vue'
-import NationalityChart from '../components/statistics/NationalityChart.vue'
-import AgeDistributionChart from '../components/statistics/AgeDistributionChart.vue'
-import ExperienceChart from '../components/statistics/ExperienceChart.vue'
-import SalaryDistributionChart from '../components/statistics/SalaryDistributionChart.vue'
+import { ref, computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useEmployeeStore } from '../stores/employees';
+import StatisticsFilters from '../components/statistics/StatisticsFilters.vue';
+import DepartmentChart from '../components/statistics/DepartmentChart.vue';
+import GenderChart from '../components/statistics/GenderChart.vue';
+import NationalityChart from '../components/statistics/NationalityChart.vue';
+import AgeDistributionChart from '../components/statistics/AgeDistributionChart.vue';
+import ExperienceChart from '../components/statistics/ExperienceChart.vue';
+import SalaryDistributionChart from '../components/statistics/SalaryDistributionChart.vue';
 
-const { t } = useI18n()
-const employeeStore = useEmployeeStore()
+// 1. I18n sozlash
+const { t } = useI18n();
 
-const timeRange = ref('month')
-const filters = ref({
+// 2. Xodimlar uchun tip yaratish
+interface Employee {
+  id: number;
+  name: string;
+  nationality: string;
+  gender: string;
+  citizenship: string;
+  address: string;
+  birthDate: string;
+  startDate: string;
+  department: string;
+  salary: string;
+}
+
+// 3. Filtrlar uchun tip yaratish
+interface Filters {
+  nationality: string;
+  gender: string;
+  citizenship: string;
+  residence: string;
+  ageRange: string;
+  experienceRange: string;
+}
+
+// 4. Store va ref'larni aniqlash
+const employeeStore = useEmployeeStore();
+const timeRange = ref<'week' | 'month' | 'quarter' | 'year'>('month');
+const filters = ref<Filters>({
   nationality: '',
   gender: '',
   citizenship: '',
   residence: '',
   ageRange: '',
   experienceRange: ''
-})
+});
 
-const filteredEmployees = computed(() => {
-  return employeeStore.employees.filter(employee => {
-    const matchesNationality = !filters.value.nationality || employee.nationality === filters.value.nationality
-    const matchesGender = !filters.value.gender || employee.gender === filters.value.gender
-    const matchesCitizenship = !filters.value.citizenship || employee.citizenship === filters.value.citizenship
-    const matchesResidence = !filters.value.residence || employee.address.includes(filters.value.residence)
-    
+// 5. Filtrlashni tiplash
+const filteredEmployees = computed<Employee[]>(() => {
+  return employeeStore.employees.filter((employee) => {
+    const matchesNationality =
+      !filters.value.nationality || employee.nationality === filters.value.nationality;
+    const matchesGender =
+      !filters.value.gender || employee.gender === filters.value.gender;
+    const matchesCitizenship =
+      !filters.value.citizenship || employee.citizenship === filters.value.citizenship;
+    const matchesResidence =
+      !filters.value.residence || employee.address.includes(filters.value.residence);
+
     // Age filtering
     if (filters.value.ageRange) {
-      const age = new Date().getFullYear() - new Date(employee.birthDate).getFullYear()
-      const [min, max] = filters.value.ageRange.split('-').map(Number)
-      if (!(age >= min && age <= (max || 100))) return false
+      const age = new Date().getFullYear() - new Date(employee.birthDate).getFullYear();
+      const [min, max] = filters.value.ageRange.split('-').map(Number);
+      if (!(age >= min && age <= (max || 100))) return false;
     }
-    
+
     // Experience filtering
     if (filters.value.experienceRange) {
-      const experience = new Date().getFullYear() - new Date(employee.startDate).getFullYear()
-      const [min, max] = filters.value.experienceRange.split('-').map(Number)
-      if (!(experience >= min && experience <= (max || 100))) return false
+      const experience = new Date().getFullYear() - new Date(employee.startDate).getFullYear();
+      const [min, max] = filters.value.experienceRange.split('-').map(Number);
+      if (!(experience >= min && experience <= (max || 100))) return false;
     }
-    
-    return matchesNationality && matchesGender && matchesCitizenship && matchesResidence
-  })
-})
 
-const departmentData = computed(() => {
-  const data = {}
-  filteredEmployees.value.forEach(employee => {
-    data[employee.department] = (data[employee.department] || 0) + 1
-  })
-  return data
-})
+    return matchesNationality && matchesGender && matchesCitizenship && matchesResidence;
+  });
+});
 
-const genderData = computed(() => {
-  const data = {}
-  filteredEmployees.value.forEach(employee => {
-    data[employee.gender] = (data[employee.gender] || 0) + 1
-  })
-  return data
-})
+// 6. Diagramlar uchun ma'lumotlarni tiplash
+const departmentData = computed<Record<string, number>>(() => {
+  const data: Record<string, number> = {};
+  filteredEmployees.value.forEach((employee) => {
+    data[employee.department] = (data[employee.department] || 0) + 1;
+  });
+  return data;
+});
 
-const nationalityData = computed(() => {
-  const data = {}
-  filteredEmployees.value.forEach(employee => {
-    data[employee.nationality] = (data[employee.nationality] || 0) + 1
-  })
-  return data
-})
+const genderData = computed<Record<string, number>>(() => {
+  const data: Record<string, number> = {};
+  filteredEmployees.value.forEach((employee) => {
+    data[employee.gender] = (data[employee.gender] || 0) + 1;
+  });
+  return data;
+});
 
-const ageData = computed(() => {
-  const data = {
+const nationalityData = computed<Record<string, number>>(() => {
+  const data: Record<string, number> = {};
+  filteredEmployees.value.forEach((employee) => {
+    data[employee.nationality] = (data[employee.nationality] || 0) + 1;
+  });
+  return data;
+});
+
+const ageData = computed<Record<string, number>>(() => {
+  const data: Record<string, number> = {
     '18-25': 0,
     '26-35': 0,
     '36-45': 0,
     '46-55': 0,
     '55+': 0
-  }
-  
-  filteredEmployees.value.forEach(employee => {
-    const age = new Date().getFullYear() - new Date(employee.birthDate).getFullYear()
-    if (age <= 25) data['18-25']++
-    else if (age <= 35) data['26-35']++
-    else if (age <= 45) data['36-45']++
-    else if (age <= 55) data['46-55']++
-    else data['55+']++
-  })
-  return data
-})
+  };
+  filteredEmployees.value.forEach((employee) => {
+    const age = new Date().getFullYear() - new Date(employee.birthDate).getFullYear();
+    if (age <= 25) data['18-25']++;
+    else if (age <= 35) data['26-35']++;
+    else if (age <= 45) data['36-45']++;
+    else if (age <= 55) data['46-55']++;
+    else data['55+']++;
+  });
+  return data;
+});
 
-const experienceData = computed(() => {
-  const data = {
+const experienceData = computed<Record<string, number>>(() => {
+  const data: Record<string, number> = {
     '0-2': 0,
     '3-5': 0,
     '6-10': 0,
     '10+': 0
-  }
-  filteredEmployees.value.forEach(employee => {
-    const years = new Date().getFullYear() - new Date(employee.startDate).getFullYear()
-    if (years <= 2) data['0-2']++
-    else if (years <= 5) data['3-5']++
-    else if (years <= 10) data['6-10']++
-    else data['10+']++
-  })
-  return data
-})
+  };
+  filteredEmployees.value.forEach((employee) => {
+    const years = new Date().getFullYear() - new Date(employee.startDate).getFullYear();
+    if (years <= 2) data['0-2']++;
+    else if (years <= 5) data['3-5']++;
+    else if (years <= 10) data['6-10']++;
+    else data['10+']++;
+  });
+  return data;
+});
 
-const salaryData = computed(() => {
-  const data = {
+const salaryData = computed<Record<string, number>>(() => {
+  const data: Record<string, number> = {
     '0-5M': 0,
     '5M-10M': 0,
     '10M-15M': 0,
     '15M+': 0
-  }
-  
-  filteredEmployees.value.forEach(employee => {
-    const salary = parseInt(employee.salary.replace(/[^0-9]/g, ''))
-    if (salary <= 5000000) data['0-5M']++
-    else if (salary <= 10000000) data['5M-10M']++
-    else if (salary <= 15000000) data['10M-15M']++
-    else data['15M+']++
-  })
-  return data
-})
+  };
 
-const handleFilterChange = (newFilters) => {
-  filters.value = newFilters
-}
+  filteredEmployees.value.forEach((employee) => {
+    const salary = parseInt(employee.salary.replace(/[^0-9]/g, ''));
+    if (salary <= 5000000) data['0-5M']++;
+    else if (salary <= 10000000) data['5M-10M']++;
+    else if (salary <= 15000000) data['10M-15M']++;
+    else data['15M+']++;
+  });
+
+  return data;
+});
+
+// 7. Filtrlarni yangilash funksiyasi
+const handleFilterChange = (newFilters: Filters) => {
+  filters.value = newFilters;
+};
 </script>
+
 
 <template>
   <div class="space-y-6">
