@@ -33,12 +33,12 @@ const navigateHome = () => {
             @click="$emit('toggle-sidebar')"
             class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
           >
-            <Bars3Icon v-if="!isSidebarOpen" class="h-6 w-6" />
+            <Bars3Icon v-if="!props.isSidebarOpen" class="h-6 w-6" />
             <XMarkIcon v-else class="h-6 w-6" />
           </button>
           <img 
             @click="navigateHome" 
-            src="../assets/logo.png"   
+            src="../assets/logotype.svg"   
             alt="Logo" 
             class="h-8 w-auto cursor-pointer ml-4"
           />
@@ -49,7 +49,7 @@ const navigateHome = () => {
             @click="$emit('toggle-dark-mode')"
             class="btn btn-secondary"
           >
-            <SunIcon v-if="isDarkMode" class="h-5 w-5" />
+            <SunIcon v-if="props.isDarkMode" class="h-5 w-5" />
             <MoonIcon v-else class="h-5 w-5" />
           </button>
 

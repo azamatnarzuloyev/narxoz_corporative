@@ -1,0 +1,1 @@
+{"root":["./vite.config.ts","./src/main.ts","./src/vite-env.d.ts","./src/i18n/index.ts","./src/router/index.ts","./src/stores/employees.ts","./src/stores/reports.ts"],"errors":true,"version":"5.6.3"}

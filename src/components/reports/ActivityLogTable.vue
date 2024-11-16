@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import type { ActivityLog } from '@/stores/reports'
+// import type { ActivityLog } from '@/stores/reports'
+import { ActivityLog } from '../../stores/reports';
+
 
 const props = defineProps<{
   logs: ActivityLog[]
@@ -31,7 +32,7 @@ const formatDate = (dateString: string) => {
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-        <tr v-for="log in logs" :key="log.id">
+        <tr v-for="log in props.logs" :key="log.id">
           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
             {{ log.user }}
           </td>
