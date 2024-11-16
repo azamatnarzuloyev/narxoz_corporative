@@ -16,7 +16,7 @@ const navigation = [
 
 <template>
   <aside class="w-64 bg-white dark:bg-gray-800 shadow-lg">
-    <div class="h-full px-3 py-4">
+    <div class="h-full px-3 py-4" style="height: 100% !important;">
       <nav class="space-y-1">
         <router-link
           v-for="item in navigation"

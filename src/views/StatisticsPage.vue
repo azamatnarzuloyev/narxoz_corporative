@@ -223,7 +223,7 @@ const handleFilterChange = (newFilters: Filters) => {
 
       <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
         <h2 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
-          Salary Distribution
+          Oylik maosh bo'yicha
         </h2>
         <SalaryDistributionChart :data="salaryData" />
       </div>

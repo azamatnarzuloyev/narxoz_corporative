@@ -5,10 +5,10 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
 const stats = ref([
-  { name: 'Total Employees', value: '250' },
-  { name: 'Active Projects', value: '15' },
-  { name: 'Departments', value: '8' },
-  { name: 'New Hires', value: '12' }
+  { name: 'Jami xodimlar', value: '250' },
+  { name: 'Faol loyihalar', value: '15' },
+  { name: "Bo'limlar", value: '8' },
+  { name: 'Yangi Ishchilar', value: '12' }
 ])
 </script>
 
