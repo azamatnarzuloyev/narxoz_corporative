@@ -8,7 +8,7 @@ import ReportTypeSelector from '../components/reports/ReportTypeSelector.vue'
 const { t } = useI18n()
 const reportsStore = useReportsStore()
 
-const selectedReportType = ref('activity')
+const selectedReportType = ref('activity') // default null 
 const dateRange = ref('week')
 
 const filteredLogs = computed(() => {
@@ -22,12 +22,12 @@ const filteredLogs = computed(() => {
 
   return reportsStore.activityLogs.filter(log => {
     const logDate = new Date(log.timestamp).getTime()
-    return now - logDate <= ranges[dateRange.value]
+    return now - logDate <= ranges[dateRange.value as keyof typeof ranges]
   })
 })
 
 const generateReport = () => {
-  const report = reportsStore.generateReport(selectedReportType.value, dateRange.value)
+  const report = reportsStore.generateReport(selectedReportType.value as 'department' | 'employee' | 'activity', dateRange.value)
   // Here you would typically trigger a download or display the report
   console.log('Generated report:', report)
 }

@@ -39,7 +39,7 @@ const options = {
     },
     tooltip: {
       callbacks: {
-        label: (context) => {
+        label: (context:any) => {
           const total = Object.values(props.data).reduce((a, b) => a + b, 0)
           const percentage = ((context.raw as number) / total * 100).toFixed(1)
           return `${context.label}: ${context.raw} (${percentage}%)`

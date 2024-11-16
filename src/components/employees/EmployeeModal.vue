@@ -17,7 +17,7 @@ defineProps<{
     startDate: string
     salary: string
     address: string
-  }
+  }| any
 }>()
 
 defineEmits(['close'])

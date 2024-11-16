@@ -32,7 +32,8 @@ const filteredEmployees = computed(() => {
   })
 })
 
-const openEmployeeModal = (employee) => {
+
+const openEmployeeModal = (employee:any) => {
   selectedEmployee.value = employee
   isModalOpen.value = true
 }
@@ -42,7 +43,7 @@ const closeModal = () => {
   selectedEmployee.value = null
 }
 
-const handleFilterChange = (filters) => {
+const handleFilterChange = (filters:any) => {
   selectedFilters.value = filters
 }
 </script>

@@ -49,7 +49,7 @@ const options = {
   plugins: {
     tooltip: {
       callbacks: {
-        label: (context) => {
+        label: (context:any) => {
           return `Employees: ${context.raw}`
         }
       }
