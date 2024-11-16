@@ -7,19 +7,19 @@ const emit = defineEmits(['select'])
 const reports = [
   {
     id: 'activity',
-    name: 'Activity Logs',
+    name: 'Faoliyat jurnallari',
     icon: ClockIcon,
     description: 'View all user activities and system logs'
   },
   {
     id: 'employee',
-    name: 'Employee Reports',
+    name: 'Xodimlar hisoboti',
     icon: DocumentChartBarIcon,
     description: 'Generate employee statistics and analytics'
   },
   {
     id: 'department',
-    name: 'Department Reports',
+    name: 'Departament hisobotlari',
     icon: DocumentArrowDownIcon,
     description: 'View department-wise reports and metrics'
   }

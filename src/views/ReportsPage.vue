@@ -60,13 +60,13 @@ const handleReportTypeSelect = (type: string) => {
       <div class="p-6">
         <div class="flex justify-between items-center mb-6">
           <h2 class="text-lg font-medium text-gray-900 dark:text-white">
-            Recent Activity Logs
+            Oxirgi faoliyat jurnallari
           </h2>
           <button
             @click="generateReport"
             class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
           >
-            Generate Report
+          Hisobot yaratish
           </button>
         </div>
 
